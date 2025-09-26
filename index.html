@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KING OF TRAP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+* {margin:0; padding:0; box-sizing:border-box;}
+body {font-family:'Roboto', sans-serif; background:#111; color:#eee; overflow-x:hidden;}
+a {text-decoration:none; color:inherit;}
+
+/* Landing */
+#landing {display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; text-align:center; background:#111 url('https://img2.pic.in.th/pic/ChatGPT-Image-Jul-6-2025-03_55_53-PM.png') no-repeat center/cover;}
+#landing h1 {font-family:'Orbitron', sans-serif; font-size:4rem; color:#fff; text-shadow:2px 2px 10px #000; margin-bottom:20px;}
+.btn {padding:15px 30px; border:none; border-radius:50px; cursor:pointer; font-weight:700; transition:0.3s; background:#222; color:#fff;}
+.btn:hover {background:#333; transform:scale(1.05);}
+footer {position:absolute; bottom:10px; font-size:0.85rem; color:#aaa;}
+
+/* Members Page */
+#members {display:none; padding:20px; min-height:100vh; background:#111;}
+header {display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;}
+header h1 {font-family:'Orbitron', sans-serif; font-size:2rem; color:#fff;}
+.home-btn {background:#222; border:none; padding:8px 20px; border-radius:30px; color:#fff; cursor:pointer; transition:0.3s;}
+.home-btn:hover {background:#333;}
+
+/* Search */
+.search-container {max-width:350px; margin:0 auto 20px; position:relative;}
+.search-container input {width:100%; padding:10px 40px; border-radius:25px; border:none; background:#222; color:#fff; outline:none; box-shadow:0 0 8px #fff; transition:0.3s;}
+.search-container input:focus {box-shadow:0 0 12px #fff;}
+.search-container .fa-search {position:absolute; top:50%; left:12px; transform:translateY(-50%); color:#fff;}
+
+/* Member Grid */
+.section-title {margin:20px 0 10px; font-family:'Orbitron', sans-serif; font-size:1.2rem; color:#fff; border-bottom:1px solid #555; padding-bottom:5px; width:100%; text-align:center;}
+.member-grid {display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:15px; justify-items:center;}
+.member-card {background:#222; border-radius:12px; padding:12px; text-align:center; cursor:pointer; transition:0.3s; width:100%; max-width:150px; border:1px solid #555; opacity:0; transform:translateY(20px);}
+.member-card.show {opacity:1; transform:translateY(0);}
+.member-card:hover {background:#1a1a1a; transform:translateY(-3px); box-shadow:0 0 10px #fff;}
+.member-card img {width:70px; height:70px; border-radius:50%; border:2px solid #fff; margin-bottom:8px;}
+.member-card h3 {color:#fff; font-size:0.95rem; margin-bottom:2px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;}
+.member-card p {color:#aaa; font-size:0.8rem; margin-bottom:5px;}
+.member-card a {color:#0a71c0; font-size:0.75rem;}
+.member-card a:hover {color:#1d9bf0;}
+
+/* Pagination */
+.pagination {display:flex; justify-content:center; gap:15px; margin-top:25px;}
+.page-btn {padding:6px 12px; background:#222; border-radius:20px; border:none; color:#fff; cursor:pointer; transition:0.3s;}
+.page-btn:hover {background:#333;}
+.page-btn.active {background:#555;}
+
+/* Loading */
+#loader {position:fixed; top:0; left:0; width:100%; height:100%; background:#111; display:flex; justify-content:center; align-items:center; z-index:200; color:#fff; font-family:'Orbitron', sans-serif; font-size:2.5rem; display:none;}
+#loader span {animation:blink 1s infinite;}
+@keyframes blink {0%,50%,100%{opacity:1;} 25%,75%{opacity:0;}}
+.member-card {
+    background:#222;
+    border-radius:15px;
+    padding:15px 10px;
+    text-align:center;
+    cursor:pointer;
+    transition:0.4s;
+    width:100%;
+    max-width:160px;
+    border:1px solid #555;
+    box-shadow:0 0 5px rgba(255,255,255,0.1);
+}
+.member-card:hover {
+    background:#1a1a1a;
+    transform:translateY(-5px) scale(1.05);
+    box-shadow:0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+.member-card img {
+    width:100%;
+    max-width:110px;
+    height:auto;
+    border-radius:50%;
+    border:3px solid rgb(255, 255, 255);
+    object-fit:cover;
+    transition:0.4s;
+}
+.member-card:hover img {
+    transform:scale(1.1);
+    box-shadow:0 0 15px rgba(255, 255, 255, 0.6);
+}
+.member-card h3 {
+    color:#fff;
+    font-size:1rem;
+    margin:8px 0 4px;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+.member-card p {
+    color:rgb(255, 255, 255);
+    font-size:0.85rem;
+    margin-bottom:6px;
+}
+.member-card a {
+    color:rgb(255, 255, 255);
+    font-size:0.75rem;
+}
+.member-card a:hover {
+    color:#ffffff;
+}
+
+</style>
+</head>
+<body>
+
+<div id="loader"><span>LOADING...</span></div>
+
+<!-- Landing Page -->
+<div id="landing">
+    <h1>KING OF TRAP</h1>
+    <button id="enter-btn" class="btn"></i> Members</button>
+    <footer>Created by JUTI STORY © 2025 KING OF TRAP</footer>
+</div>
+
+<!-- Members Page -->
+<div id="members">
+    <header>
+        <h1>KING OF TRAP</h1>
+        <button id="homeBtn" class="home-btn"><i class="fas fa-home"></i> Home</button>
+    </header>
+
+    <div class="search-container">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search member name...">
+    </div>
+
+    <!-- Leaders Section (แสดงเฉพาะหน้าแรก) -->
+    <div id="leadersSection">
+        <div class="section-title">Leaders</div>
+        <div class="member-grid" id="leadersGrid"></div>
+    </div>
+
+    <!-- Members Section -->
+    <div id="membersSection">
+        <div class="section-title">Members</div>
+        <div class="member-grid" id="membersGrid"></div>
+    </div>
+
+    <div class="pagination" id="pagination"></div>
+</div>
+
+<script>
+const landing = document.getElementById('landing');
+const membersPage = document.getElementById('members');
+const loader = document.getElementById('loader');
+const searchInput = document.getElementById('searchInput');
+const leadersGrid = document.getElementById('leadersGrid');
+const membersGrid = document.getElementById('membersGrid');
+const pagination = document.getElementById('pagination');
+
+let membersData = [];
+let currentPage = 1;
+const itemsPerPage = 10;
+
+document.getElementById('enter-btn').addEventListener('click', ()=>{
+    loader.style.display='flex';
+    setTimeout(()=>{
+        loader.style.display='none';
+        landing.style.display='none';
+        membersPage.style.display='block';
+        renderPage();
+    }, 800);
+});
+
+document.getElementById('homeBtn').addEventListener('click', ()=>{
+    membersPage.style.display='none';
+    landing.style.display='flex';
+    searchInput.value='';
+    currentPage=1;
+    renderPage();
+});
+
+fetch('members.json')
+.then(res=>res.json())
+.then(data=>{
+    membersData = data;
+    renderPage();
+});
+
+function renderPage(){
+    const searchVal = searchInput.value.toLowerCase();
+    
+    // แยก Leaders และ Members
+    const leaders = membersData.filter(m=>m.role.toLowerCase().includes('leader'));
+    let membersOnly = membersData.filter(m=>!m.role.toLowerCase().includes('leader'));
+
+    // Search เฉพาะ Members
+    if(searchVal) membersOnly = membersOnly.filter(m=>m.name.toLowerCase().includes(searchVal));
+
+    // Pagination
+    const startIdx = (currentPage-1)*itemsPerPage;
+    const endIdx = startIdx+itemsPerPage;
+    const paginatedMembers = membersOnly.slice(startIdx,endIdx);
+
+    // Render Leaders เฉพาะหน้าแรก
+    if(currentPage===1){
+        leadersGrid.innerHTML='';
+        leaders.forEach(m=>{
+            const card = createCard(m);
+            leadersGrid.appendChild(card);
+        });
+        document.getElementById('leadersSection').style.display='block';
+    } else {
+        // ซ่อน Leaders section หน้าอื่น
+        document.getElementById('leadersSection').style.display='none';
+    }
+
+    // Render Members
+    membersGrid.innerHTML='';
+    paginatedMembers.forEach(m=>{
+        const card = createCard(m);
+        membersGrid.appendChild(card);
+    });
+
+    // Pagination
+    pagination.innerHTML='';
+    const totalPages = Math.ceil(membersOnly.length/itemsPerPage);
+    for(let i=1;i<=totalPages;i++){
+        const btn = document.createElement('button');
+        btn.className='page-btn'+(i===currentPage?' active':'');
+        btn.innerText=i;
+        btn.addEventListener('click',()=>{currentPage=i; renderPage();});
+        pagination.appendChild(btn);
+    }
+}
+
+// สร้าง Card function
+function createCard(m){
+    const card = document.createElement('div');
+    card.className='member-card show';
+    card.innerHTML=`
+        <img src="${m.img}" alt="${m.name}">
+        <h3 title="${m.name}">${m.name}</h3>
+        <p>${m.role}</p>
+        <a href="${m.facebook}" target="_blank"><i class="fab fa-facebook"></i> facebook</a>`;
+    return card;
+}
+
+// Search input
+searchInput.addEventListener('input', ()=>{
+    currentPage=1;
+    renderPage();
+});
+</script>
+
+</body>
+</html>
