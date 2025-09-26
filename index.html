@@ -141,9 +141,9 @@ header h1{font-family:'Orbitron',sans-serif;font-size:2rem;color:#fff;text-shado
         <input type="text" id="searchInput" placeholder="Search member name...">
     </div>
 
-    <div id="owenSection">
-        <div class="section-title">Owen</div>
-        <div class="member-center" id="owenGrid"></div>
+    <div id="ownerSection">
+        <div class="section-title">Owner</div>
+        <div class="member-center" id="ownerGrid"></div>
     </div>
 
     <div id="leadersSection">
@@ -166,9 +166,9 @@ const loader = document.getElementById('loader');
 const searchInput = document.getElementById('searchInput');
 const leadersGrid = document.getElementById('leadersGrid');
 const membersGrid = document.getElementById('membersGrid');
-const owenGrid = document.getElementById('owenGrid');
+const ownerGrid = document.getElementById('ownerGrid');
 const pagination = document.getElementById('pagination');
-const owenSection = document.getElementById('owenSection');
+const ownerSection = document.getElementById('ownerSection');
 const leadersSection = document.getElementById('leadersSection');
 
 let membersData = [];
@@ -225,22 +225,22 @@ fetch('members.json').then(res => res.json()).then(data => {
 
 function renderPage(){
     const searchVal = searchInput.value.toLowerCase();
-    const owen = membersData.filter(m => m.role.toLowerCase() === 'owen');
+    const owners = membersData.filter(m => m.role.toLowerCase() === 'owner'); // เปลี่ยนจาก owen
     const leaders = membersData.filter(m => m.role.toLowerCase().includes('leader'));
-    let membersOnly = membersData.filter(m => !m.role.toLowerCase().includes('leader') && m.role.toLowerCase() !== 'owen');
+    let membersOnly = membersData.filter(m => !m.role.toLowerCase().includes('leader') && m.role.toLowerCase() !== 'owner'); // เปลี่ยนจาก owen
     if(searchVal) membersOnly = membersOnly.filter(m => m.name.toLowerCase().includes(searchVal));
 
     let itemsPerPage = currentPage === 1 ? 11 : 33;
 
     if(currentPage === 1){
-        owenSection.style.display='block';
+        ownerSection.style.display='block';
         leadersSection.style.display='block';
-        owenGrid.innerHTML='';
-        owen.forEach((m,i)=>setTimeout(()=>{const card=createCard(m);card.classList.add('show');owenGrid.appendChild(card);},i*100));
+        ownerGrid.innerHTML='';
+        owners.forEach((m,i)=>setTimeout(()=>{const card=createCard(m);card.classList.add('show');ownerGrid.appendChild(card);},i*100));
         leadersGrid.innerHTML='';
         leaders.forEach((m,i)=>setTimeout(()=>{const card=createCard(m);card.classList.add('show');leadersGrid.appendChild(card);},i*100));
     } else {
-        owenSection.style.display='none';
+        ownerSection.style.display='none';
         leadersSection.style.display='none';
     }
 
@@ -272,3 +272,4 @@ searchInput.addEventListener('input',()=>{currentPage=1; renderPage();});
 </script>
 </body>
 </html>
+
