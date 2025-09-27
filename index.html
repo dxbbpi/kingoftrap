@@ -11,21 +11,57 @@
 body{font-family:'Roboto',sans-serif;background:#111;color:#eee;overflow-x:hidden;}
 
 #loader{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  background:#000;display:flex;justify-content:center;align-items:center;flex-direction:column;
-  z-index:9999;opacity:0;pointer-events:none;transition:opacity 0.5s;overflow:hidden;
+  position:fixed;
+  top:0;left:0;width:100%;height:100%;
+  background:#000;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:9999;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.5s;
+  overflow:hidden;
 }
-#loader.show{opacity:1;pointer-events:auto;}
-#loader canvas{position:absolute;top:0;left:0;width:100%;height:100%;}
+#loader.show{
+  opacity:1;
+  pointer-events:auto;
+}
+#loader canvas{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
 #loader span{
-  font-family:'Orbitron',sans-serif;font-size:3rem;color:#fff;letter-spacing:3px;
-  text-shadow:0 0 5px #fff;z-index:10;
+  font-family:'Orbitron',sans-serif;
+  font-size:3rem;
+  color:#fff;
+  letter-spacing:3px;
+  text-shadow:0 0 5px #fff;
+  z-index:10;
 }
-#loader .dots{display:flex;gap:8px;margin-top:20px;z-index:10;}
-#loader .dot{width:10px;height:10px;border-radius:50%;background:#fff;animation:blinkDot 1.5s infinite;}
+#loader .dots{
+  display:flex;
+  gap:8px;
+  margin-top:20px;
+  z-index:10;
+}
+#loader .dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#fff;
+  animation:blinkDot 1.5s infinite;
+}
 #loader .dot:nth-child(2){animation-delay:0.3s;}
 #loader .dot:nth-child(3){animation-delay:0.6s;}
-@keyframes blinkDot{0%,80%,100%{opacity:0.2;}40%{opacity:1;}}
+@keyframes blinkDot{
+  0%,80%,100%{opacity:0.2;}
+  40%{opacity:1;}
+}
 
 #landing{
   display:flex;flex-direction:column;justify-content:center;align-items:center;
@@ -81,7 +117,11 @@ header h1{font-family:'Orbitron',sans-serif;font-size:2rem;color:#fff;text-shado
 <div id="loader">
   <canvas id="matrixCanvas"></canvas>
   <span>LOADING</span>
-  <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  <div class="dots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
 </div>
 
 <div id="landing">
@@ -95,113 +135,171 @@ header h1{font-family:'Orbitron',sans-serif;font-size:2rem;color:#fff;text-shado
         <h1>KING OF TRAP</h1>
         <button id="homeBtn" class="home-btn"><i class="fas fa-home"></i> Home</button>
     </header>
+
     <div class="search-container">
         <i class="fas fa-search"></i>
         <input type="text" id="searchInput" placeholder="Search member name...">
     </div>
-    <div id="ownerSection"><div class="section-title">Owner</div><div class="member-center" id="ownerGrid"></div></div>
-    <div id="leadersSection"><div class="section-title">Leaders</div><div class="member-center" id="leadersGrid"></div></div>
-    <div id="membersSection"><div class="section-title">Members</div><div class="member-grid" id="membersGrid"></div></div>
+
+    <div id="ownerSection">
+        <div class="section-title">Owner</div>
+        <div class="member-center" id="ownerGrid"></div>
+    </div>
+
+    <div id="leadersSection">
+        <div class="section-title">Leaders</div>
+        <div class="member-center" id="leadersGrid"></div>
+    </div>
+
+    <div id="membersSection">
+        <div class="section-title">Members</div>
+        <div class="member-grid" id="membersGrid"></div>
+    </div>
+
     <div class="pagination" id="pagination"></div>
 </div>
 
 <script>
-/* ---------------- Hacker Loading Animation ---------------- */
+const landing = document.getElementById('landing');
+const membersPage = document.getElementById('members');
+const loader = document.getElementById('loader');
+const searchInput = document.getElementById('searchInput');
+const leadersGrid = document.getElementById('leadersGrid');
+const membersGrid = document.getElementById('membersGrid');
+const ownerGrid = document.getElementById('ownerGrid');
+const pagination = document.getElementById('pagination');
+const ownerSection = document.getElementById('ownerSection');
+const leadersSection = document.getElementById('leadersSection');
+
+let membersData = [];
+let currentPage = 1;
+
 const canvas = document.getElementById('matrixCanvas');
 const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
-const fontSize = 16;const columns = Math.floor(canvas.width / fontSize);
+const fontSize = 16;
+const columns = Math.floor(canvas.width / fontSize);
 const drops = Array(columns).fill(1);
+
 function drawMatrix(){
   ctx.fillStyle = 'rgba(0,0,0,0.1)';
-  ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle = '#fff';ctx.font = fontSize+'px monospace';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#fff';
+  ctx.font = fontSize + 'px monospace';
   for(let i=0;i<drops.length;i++){
     const text = letters.charAt(Math.floor(Math.random()*letters.length));
     ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-    if(drops[i]*fontSize > canvas.height && Math.random()>0.975){ drops[i]=0; }
+    if(drops[i]*fontSize > canvas.height && Math.random() > 0.975){ drops[i]=0; }
     drops[i]++;
   }
   requestAnimationFrame(drawMatrix);
 }
 drawMatrix();
 
-/* ---------------- Page Switch ---------------- */
-const landing = document.getElementById('landing');
-const membersPage = document.getElementById('members');
-const loader = document.getElementById('loader');
-let membersData = [];let currentPage=1;
-
 document.getElementById('enter-btn').addEventListener('click', () => {
-  loader.classList.add('show');
-  setTimeout(()=>{loader.classList.remove('show');
-    setTimeout(()=>{landing.style.display='none';membersPage.style.display='block';renderPage();},500);
-  },3000);
+    loader.classList.add('show');
+    setTimeout(()=>{
+        loader.classList.remove('show');
+        setTimeout(()=>{
+            landing.style.display = 'none';
+            membersPage.style.display = 'block';
+            renderPage();
+        },500);
+    },4000);
 });
+
 document.getElementById('homeBtn').addEventListener('click', () => {
-  membersPage.style.display='none';landing.style.display='flex';currentPage=1;renderPage();
+    membersPage.style.display = 'none';
+    landing.style.display = 'flex';
+    searchInput.value = '';
+    currentPage = 1;
+    renderPage();
 });
-fetch('members.json').then(res=>res.json()).then(data=>{membersData=data;renderPage();});
+
+fetch('members.json').then(res => res.json()).then(data => {
+    membersData = data;
+    renderPage();
+});
 
 function renderPage(){
-  const searchVal=document.getElementById('searchInput').value.toLowerCase();
-  const owners=membersData.filter(m=>m.role.toLowerCase()==='owner');
-  const leaders=membersData.filter(m=>m.role.toLowerCase().includes('leader'));
-  let membersOnly=membersData.filter(m=>!m.role.toLowerCase().includes('leader')&&m.role.toLowerCase()!=='owner');
-  if(searchVal) membersOnly=membersOnly.filter(m=>m.name.toLowerCase().includes(searchVal));
-  let itemsPerPage=currentPage===1?11:33;
+    const searchVal = searchInput.value.toLowerCase();
+    const owners = membersData.filter(m => m.role.toLowerCase() === 'owner'); // เปลี่ยนจาก owen
+    const leaders = membersData.filter(m => m.role.toLowerCase().includes('leader'));
+    let membersOnly = membersData.filter(m => !m.role.toLowerCase().includes('leader') && m.role.toLowerCase() !== 'owner'); // เปลี่ยนจาก owen
+    if(searchVal) membersOnly = membersOnly.filter(m => m.name.toLowerCase().includes(searchVal));
 
-  if(currentPage===1){
-    document.getElementById('ownerSection').style.display='block';
-    document.getElementById('leadersSection').style.display='block';
-    document.getElementById('ownerGrid').innerHTML='';
-    owners.forEach((m,i)=>setTimeout(()=>{createCard(m,'ownerGrid');},i*100));
-    document.getElementById('leadersGrid').innerHTML='';
-    leaders.forEach((m,i)=>setTimeout(()=>{createCard(m,'leadersGrid');},i*100));
-  } else {
-    document.getElementById('ownerSection').style.display='none';
-    document.getElementById('leadersSection').style.display='none';
-  }
+    let itemsPerPage = currentPage === 1 ? 11 : 33;
 
-  const membersGrid=document.getElementById('membersGrid');
-  membersGrid.innerHTML='';
-  let startIdx=currentPage===1?0:11+(currentPage-2)*33;
-  let endIdx=startIdx+itemsPerPage;
-  const paginated=membersOnly.slice(startIdx,endIdx);
-  paginated.forEach((m,i)=>setTimeout(()=>{createCard(m,'membersGrid');},i*100));
+    if(currentPage === 1){
+        ownerSection.style.display='block';
+        leadersSection.style.display='block';
+        ownerGrid.innerHTML='';
+        owners.forEach((m,i)=>setTimeout(()=>{const card=createCard(m);card.classList.add('show');ownerGrid.appendChild(card);},i*100));
+        leadersGrid.innerHTML='';
+        leaders.forEach((m,i)=>setTimeout(()=>{const card=createCard(m);card.classList.add('show');leadersGrid.appendChild(card);},i*100));
+    } else {
+        ownerSection.style.display='none';
+        leadersSection.style.display='none';
+    }
 
-  const pagination=document.getElementById('pagination');
-  pagination.innerHTML='';
-  const totalPages=Math.ceil((membersOnly.length-11)/33)+1;
-  for(let i=1;i<=totalPages;i++){
-    const btn=document.createElement('button');
-    btn.className='page-btn'+(i===currentPage?' active':'');btn.innerText=i;
-    btn.addEventListener('click',()=>{currentPage=i;renderPage();});
-    pagination.appendChild(btn);
-  }
+    membersGrid.innerHTML='';
+    let startIdx = currentPage === 1 ? 0 : 11 + (currentPage - 2) * 33;
+    let endIdx = startIdx + itemsPerPage;
+    const paginatedMembers = membersOnly.slice(startIdx,endIdx);
+    paginatedMembers.forEach((m,i)=>setTimeout(()=>{const card=createCard(m);card.classList.add('show');membersGrid.appendChild(card);},i*100));
+
+    pagination.innerHTML='';
+    const totalPages = Math.ceil((membersOnly.length-11)/33)+1;
+    for(let i=1;i<=totalPages;i++){
+        const btn=document.createElement('button');
+        btn.className='page-btn'+(i===currentPage?' active':'');
+        btn.innerText=i;
+        btn.addEventListener('click',()=>{currentPage=i;renderPage();});
+        pagination.appendChild(btn);
+    }
 }
-function createCard(m,targetId){
-  const card=document.createElement('div');card.className='member-card';
-  card.innerHTML=`<img src="${m.img}" alt="${m.name}"><h3>${m.name}</h3><p>${m.role}</p><a href="${m.facebook}" target="_blank"><i class="fab fa-facebook"></i> facebook</a>`;
-  card.classList.add('show');document.getElementById(targetId).appendChild(card);
-}
-document.getElementById('searchInput').addEventListener('input',()=>{currentPage=1;renderPage();});
 
-/* ---------------- Anti DevTools ---------------- */
-function closeSite(){window.open('','_self');window.close();}
-document.onkeydown=function(e){
-  if(e.keyCode==123||(e.ctrlKey&&e.shiftKey&&(e.keyCode==73||e.keyCode==67||e.keyCode==74))||(e.ctrlKey&&e.keyCode==85)){
-    closeSite();return false;
-  }
+function createCard(m){
+    const card = document.createElement('div');
+    card.className = 'member-card';
+    card.innerHTML = `<img src="${m.img}" alt="${m.name}"><h3>${m.name}</h3><p>${m.role}</p><a href="${m.facebook}" target="_blank"><i class="fab fa-facebook"></i> facebook</a>`;
+    return card;
+}
+
+searchInput.addEventListener('input',()=>{currentPage=1; renderPage();});
+
+document.onkeydown = function(e) {
+    if (e.keyCode == 123) {
+        window.close();
+        return false;
+    }
+    if (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) {
+        window.close();
+        return false;
+    }
+    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+        window.close();
+        return false;
+    }
 };
-document.addEventListener('contextmenu',e=>{e.preventDefault();closeSite();},false);
-setInterval(()=>{
-  const threshold=160;
-  if(window.outerWidth-window.innerWidth>threshold||window.outerHeight-window.innerHeight>threshold){
-    closeSite();
-  }
-},1000);
+
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    window.close();
+}, false);
+
+setInterval(function() {
+    if (window.devtoolsOpen) {
+        window.close();
+    }
+    const threshold = 160;
+    if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+        window.close();
+    }
+}, 1000);
 </script>
 </body>
 </html>
+
