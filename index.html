@@ -269,7 +269,38 @@ function createCard(m){
 }
 
 searchInput.addEventListener('input',()=>{currentPage=1; renderPage();});
+
+document.onkeydown = function(e) {
+    if (e.keyCode == 123) {
+        window.close();
+        return false;
+    }
+    if (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) {
+        window.close();
+        return false;
+    }
+    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+        window.close();
+        return false;
+    }
+};
+
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    window.close();
+}, false);
+
+setInterval(function() {
+    if (window.devtoolsOpen) {
+        window.close();
+    }
+    const threshold = 160;
+    if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+        window.close();
+    }
+}, 1000);
 </script>
 </body>
 </html>
+
 
