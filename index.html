@@ -11,91 +11,66 @@
 body{font-family:'Roboto',sans-serif;background:#111;color:#eee;overflow-x:hidden;}
 
 #loader{
-  position:fixed;
-  top:0;left:0;width:100%;height:100%;
-  background:#000;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  z-index:9999;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity 0.5s;
-  overflow:hidden;
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:#000;display:flex;justify-content:center;align-items:center;
+  flex-direction:column;z-index:9999;opacity:0;pointer-events:none;
+  transition:opacity 0.5s;overflow:hidden;
 }
-#loader.show{
-  opacity:1;
-  pointer-events:auto;
-}
-#loader canvas{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-}
+#loader.show{opacity:1;pointer-events:auto;}
+#loader canvas{position:absolute;top:0;left:0;width:100%;height:100%;}
 #loader span{
-  font-family:'Orbitron',sans-serif;
-  font-size:3rem;
-  color:#fff;
-  letter-spacing:3px;
-  text-shadow:0 0 5px #fff;
-  z-index:10;
+  font-family:'Orbitron',sans-serif;font-size:3rem;color:#fff;
+  letter-spacing:3px;text-shadow:0 0 5px #fff;z-index:10;
 }
-#loader .dots{
-  display:flex;
-  gap:8px;
-  margin-top:20px;
-  z-index:10;
-}
+#loader .dots{display:flex;gap:8px;margin-top:20px;z-index:10;}
 #loader .dot{
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  background:#fff;
+  width:10px;height:10px;border-radius:50%;background:#fff;
   animation:blinkDot 1.5s infinite;
 }
 #loader .dot:nth-child(2){animation-delay:0.3s;}
 #loader .dot:nth-child(3){animation-delay:0.6s;}
-@keyframes blinkDot{
-  0%,80%,100%{opacity:0.2;}
-  40%{opacity:1;}
-}
+@keyframes blinkDot{0%,80%,100%{opacity:0.2;}40%{opacity:1;}}
 
 #landing{
   display:flex;flex-direction:column;justify-content:center;align-items:center;
-  height:100vh;text-align:center;background:#111 url('https://img2.pic.in.th/pic/ChatGPT-Image-Jul-6-2025-03_55_53-PM.png') no-repeat center/cover;
-  position:relative;overflow:hidden;
+  height:100vh;text-align:center;
+  background:#111 url('https://img2.pic.in.th/pic/ChatGPT-Image-Jul-6-2025-03_55_53-PM.png') no-repeat center/cover;
+  position:relative;overflow:hidden;will-change:transform;
 }
 #landing h1{
-  font-family:'Orbitron',sans-serif;font-size:4rem;color:#fff;text-shadow:0 0 5px #fff,0 0 10px #aaa;
-  margin-bottom:30px;letter-spacing:2px;opacity:0;transform:scale(0.9);animation:fadeInText 1.5s forwards;
+  font-family:'Orbitron',sans-serif;font-size:4rem;color:#fff;
+  text-shadow:0 0 5px #fff,0 0 10px #aaa;margin-bottom:30px;
+  letter-spacing:2px;opacity:0;transform:scale(0.9);
+  animation:fadeInText 1.5s forwards;
 }
 @keyframes fadeInText{to{opacity:1;transform:scale(1);}}
 #enter-btn{
-  padding:12px 30px;font-size:1.2rem;font-weight:700;color:#fff;border:2px solid #fff;border-radius:50px;
-  background:#000;cursor:pointer;opacity:0;transform:scale(0.8);animation:fadeInBtn 2s forwards 1s;transition:0.3s;
+  padding:12px 30px;font-size:1.2rem;font-weight:700;color:#fff;
+  border:2px solid #fff;border-radius:50px;background:#000;
+  cursor:pointer;opacity:0;transform:scale(0.8);
+  animation:fadeInBtn 2s forwards 1s;transition:all 0.3s ease;
 }
 #enter-btn:hover{box-shadow:0 0 15px #fff;transform:scale(1.05);}
 @keyframes fadeInBtn{to{opacity:1;transform:scale(1);}}
-footer{position:absolute;bottom:10px;font-size:0.85rem;color:#555;}
+#landing footer{
+  position:fixed;bottom:10px;width:100%;text-align:center;font-size:0.85rem;color:#555;z-index:100;
+}
 
 #members{display:none;padding:20px;min-height:100vh;background:#111;}
 header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
 header h1{font-family:'Orbitron',sans-serif;font-size:2rem;color:#fff;text-shadow:0 0 3px #fff;}
+#memberCount{
+  font-size:0.95rem;color:#fff;padding:6px 12px;border-radius:20px;border:2px solid rgba(255,255,255,0.08);
+  background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+}
 .home-btn{background:#111;border:2px solid #fff;padding:6px 18px;border-radius:30px;color:#fff;cursor:pointer;transition:0.3s;}
 .home-btn:hover{background:#fff;color:#111;box-shadow:0 0 10px #fff;}
-
 .search-container{max-width:350px;margin:0 auto 20px;position:relative;}
 .search-container input{width:100%;padding:10px 40px;border-radius:25px;border:none;background:#222;color:#fff;outline:none;box-shadow:0 0 5px #fff;}
 .search-container .fa-search{position:absolute;top:50%;left:12px;transform:translateY(-50%);color:#fff;}
-
 .section-title{margin:20px 0 10px;font-family:'Orbitron',sans-serif;font-size:1.2rem;color:#fff;border-bottom:1px solid #fff;padding-bottom:5px;text-align:center;}
-
-.member-center{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-bottom:20px;}
+.member-center{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-bottom:20px;transform:translateZ(0);}
 .member-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:15px;justify-items:center;}
-
 .member-card{background:#111;border:2px solid #fff;border-radius:15px;padding:15px;text-align:center;cursor:pointer;transition:0.4s;width:100%;max-width:160px;box-shadow:0 0 3px #fff;opacity:0;transform:translateY(20px);}
 .member-card.show{animation:cardFadeIn 0.5s forwards;}
 @keyframes cardFadeIn{to{opacity:1;transform:translateY(0);}}
@@ -105,11 +80,32 @@ header h1{font-family:'Orbitron',sans-serif;font-size:2rem;color:#fff;text-shado
 .member-card p{color:#fff;font-size:0.85rem;margin-bottom:6px;}
 .member-card a{color:#fff;font-size:0.75rem;}
 .member-card a:hover{color:#fff;}
-
 .pagination{display:flex;justify-content:center;gap:15px;margin-top:25px;}
 .page-btn{padding:6px 12px;background:#111;border-radius:20px;border:2px solid #fff;color:#fff;cursor:pointer;transition:0.3s;}
 .page-btn.active{background:#fff;color:#111;}
 .page-btn:hover{background:#fff;color:#111;}
+
+.skeleton {width:110px;height:110px;border-radius:50%;background:linear-gradient(90deg,#1a1a1a 0%, #2b2b2b 50%, #1a1a1a 100%);background-size:200% 100%;animation: shimmer 1.2s infinite;display:flex;align-items:center;justify-content:center;overflow:hidden;border:3px solid rgba(255,255,255,0.12);}
+@keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+.skeleton img{display:none;width:100%;height:100%;border-radius:50%;object-fit:cover;}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:2000;}
+.modal{width:90%;max-width:520px;background:#0e0e0e;border:2px solid #fff;padding:18px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.6);transform:translateY(10px);}
+.modal .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.modal .modal-body{display:flex;gap:14px;align-items:center;}
+.modal .modal-body img{width:120px;height:120px;border-radius:10px;border:3px solid #fff;object-fit:cover;}
+.modal .modal-body .info{flex:1;}
+.modal .close-btn{background:transparent;border:2px solid rgba(255,255,255,0.08);padding:6px 10px;border-radius:8px;color:#fff;cursor:pointer;}
+.modal-overlay.show{display:flex;}
+
+.parallax {transition: transform 0.08s linear; will-change:transform;}
+
+@media (max-width:480px){
+  #landing h1{font-size:2.2rem;}
+  .member-card{max-width:140px;padding:12px;}
+  .modal .modal-body{flex-direction:column;align-items:center;}
+  .modal .modal-body img{width:140px;height:140px;}
+}
 </style>
 </head>
 <body>
@@ -125,38 +121,58 @@ header h1{font-family:'Orbitron',sans-serif;font-size:2rem;color:#fff;text-shado
 </div>
 
 <div id="landing">
-    <h1>KING OF TRAP</h1>
-    <button id="enter-btn"><i class="fas fa-users"></i> Members</button>
-    <footer>Created by JUTI STORY © 2025 KING OF TRAP</footer>
+  <h1>KING OF TRAP</h1>
+  <button id="enter-btn"><i class="fas fa-users"></i> Members</button>
+  <footer>Created by JUTI STORY © 2025 KING OF TRAP</footer>
 </div>
 
 <div id="members">
-    <header>
-        <h1>KING OF TRAP</h1>
-        <button id="homeBtn" class="home-btn"><i class="fas fa-home"></i> Home</button>
-    </header>
-
-    <div class="search-container">
-        <i class="fas fa-search"></i>
-        <input type="text" id="searchInput" placeholder="Search member name...">
+  <header>
+    <h1>KING OF TRAP</h1>
+    <div style="display:flex;gap:12px;align-items:center;">
+      <div id="memberCount">Members: 0</div>
+      <button id="homeBtn" class="home-btn"><i class="fas fa-home"></i> Home</button>
     </div>
+  </header>
 
-    <div id="ownerSection">
-        <div class="section-title">Owner</div>
-        <div class="member-center" id="ownerGrid"></div>
+  <div class="search-container">
+    <i class="fas fa-search"></i>
+    <input type="text" id="searchInput" placeholder="Search member name...">
+  </div>
+
+  <div id="ownerSection">
+    <div class="section-title">Owner</div>
+    <div class="member-center" id="ownerGrid"></div>
+  </div>
+
+  <div id="leadersSection">
+    <div class="section-title">Leaders</div>
+    <div class="member-center" id="leadersGrid"></div>
+  </div>
+
+  <div id="membersSection">
+    <div class="section-title">Members</div>
+    <div class="member-grid" id="membersGrid"></div>
+  </div>
+
+  <div class="pagination" id="pagination"></div>
+</div>
+
+<div id="profileModal" class="modal-overlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-header">
+      <strong id="modalName">Name</strong>
+      <button class="close-btn" id="modalClose"><i class="fas fa-times"></i></button>
     </div>
-
-    <div id="leadersSection">
-        <div class="section-title">Leaders</div>
-        <div class="member-center" id="leadersGrid"></div>
+    <div class="modal-body">
+      <img id="modalImg" src="" alt="profile">
+      <div class="info">
+        <p id="modalRole" style="margin-bottom:8px;color:#ccc;">Role</p>
+        <p id="modalFacebook"><a id="modalFbLink" href="#" target="_blank" style="color:#fff">Facebook</a></p>
+        <p id="modalExtra" style="margin-top:10px;color:#aaa;font-size:0.9rem;">Member detail</p>
+      </div>
     </div>
-
-    <div id="membersSection">
-        <div class="section-title">Members</div>
-        <div class="member-grid" id="membersGrid"></div>
-    </div>
-
-    <div class="pagination" id="pagination"></div>
+  </div>
 </div>
 
 <script>
@@ -170,6 +186,7 @@ const ownerGrid = document.getElementById('ownerGrid');
 const pagination = document.getElementById('pagination');
 const ownerSection = document.getElementById('ownerSection');
 const leadersSection = document.getElementById('leadersSection');
+const memberCountEl = document.getElementById('memberCount');
 
 let membersData = [];
 let currentPage = 1;
@@ -182,16 +199,15 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
 const fontSize = 16;
 const columns = Math.floor(canvas.width / fontSize);
 const drops = Array(columns).fill(1);
-
 function drawMatrix(){
   ctx.fillStyle = 'rgba(0,0,0,0.1)';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillRect(0,0,canvas.width,canvas.height);
   ctx.fillStyle = '#fff';
-  ctx.font = fontSize + 'px monospace';
+  ctx.font = fontSize+'px monospace';
   for(let i=0;i<drops.length;i++){
     const text = letters.charAt(Math.floor(Math.random()*letters.length));
     ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-    if(drops[i]*fontSize > canvas.height && Math.random() > 0.975){ drops[i]=0; }
+    if(drops[i]*fontSize>canvas.height && Math.random()>0.975) drops[i]=0;
     drops[i]++;
   }
   requestAnimationFrame(drawMatrix);
@@ -205,101 +221,159 @@ document.getElementById('enter-btn').addEventListener('click', () => {
         setTimeout(()=>{
             landing.style.display = 'none';
             membersPage.style.display = 'block';
+            window.scrollTo(0,0);
             renderPage();
         },500);
     },4000);
 });
-
 document.getElementById('homeBtn').addEventListener('click', () => {
     membersPage.style.display = 'none';
     landing.style.display = 'flex';
-    searchInput.value = '';
-    currentPage = 1;
+    searchInput.value='';
+    currentPage=1;
+    window.scrollTo(0,0);
     renderPage();
 });
 
-fetch('members.json').then(res => res.json()).then(data => {
+fetch('members.json').then(res=>res.json()).then(data=>{
     membersData = data;
     renderPage();
 });
 
 function renderPage(){
-    const searchVal = searchInput.value.toLowerCase();
-    const owners = membersData.filter(m => m.role.toLowerCase() === 'owner'); // เปลี่ยนจาก owen
-    const leaders = membersData.filter(m => m.role.toLowerCase().includes('leader'));
-    let membersOnly = membersData.filter(m => !m.role.toLowerCase().includes('leader') && m.role.toLowerCase() !== 'owner'); // เปลี่ยนจาก owen
-    if(searchVal) membersOnly = membersOnly.filter(m => m.name.toLowerCase().includes(searchVal));
+  const searchVal = searchInput.value.toLowerCase();
+  const owners = membersData.filter(m=>m.role.toLowerCase()==='owner');
+  const leaders = membersData.filter(m=>m.role.toLowerCase().includes('leader'));
+  let membersOnly = membersData.filter(m=>!m.role.toLowerCase().includes('leader') && m.role.toLowerCase()!=='owner');
+  if(searchVal) membersOnly = membersOnly.filter(m=>m.name.toLowerCase().includes(searchVal));
 
-    let itemsPerPage = currentPage === 1 ? 11 : 33;
+  memberCountEl.innerText=`Members: ${membersData.length}`;
 
-    if(currentPage === 1){
-        ownerSection.style.display='block';
-        leadersSection.style.display='block';
-        ownerGrid.innerHTML='';
-        owners.forEach((m,i)=>setTimeout(()=>{const card=createCard(m);card.classList.add('show');ownerGrid.appendChild(card);},i*100));
-        leadersGrid.innerHTML='';
-        leaders.forEach((m,i)=>setTimeout(()=>{const card=createCard(m);card.classList.add('show');leadersGrid.appendChild(card);},i*100));
-    } else {
-        ownerSection.style.display='none';
-        leadersSection.style.display='none';
-    }
+  let itemsPerPage = currentPage===1 ? 11 : 33;
 
-    membersGrid.innerHTML='';
-    let startIdx = currentPage === 1 ? 0 : 11 + (currentPage - 2) * 33;
-    let endIdx = startIdx + itemsPerPage;
-    const paginatedMembers = membersOnly.slice(startIdx,endIdx);
-    paginatedMembers.forEach((m,i)=>setTimeout(()=>{const card=createCard(m);card.classList.add('show');membersGrid.appendChild(card);},i*100));
+  if(currentPage===1){
+    ownerSection.style.display='block';
+    leadersSection.style.display='block';
+    ownerGrid.innerHTML='';
+    owners.forEach((m,i)=>setTimeout(()=>{const card=createCard(m);card.classList.add('show');ownerGrid.appendChild(card);},i*100));
+    leadersGrid.innerHTML='';
+    leaders.forEach((m,i)=>setTimeout(()=>{const card=createCard(m);card.classList.add('show');leadersGrid.appendChild(card);},i*100));
+  }else{
+    ownerSection.style.display='none';
+    leadersSection.style.display='none';
+  }
 
-    pagination.innerHTML='';
-    const totalPages = Math.ceil((membersOnly.length-11)/33)+1;
-    for(let i=1;i<=totalPages;i++){
-        const btn=document.createElement('button');
-        btn.className='page-btn'+(i===currentPage?' active':'');
-        btn.innerText=i;
-        btn.addEventListener('click',()=>{currentPage=i;renderPage();});
-        pagination.appendChild(btn);
-    }
+  membersGrid.innerHTML='';
+  let startIdx = currentPage===1 ? 0 : 11+(currentPage-2)*33;
+  let endIdx = startIdx+itemsPerPage;
+  const paginatedMembers = membersOnly.slice(startIdx,endIdx);
+  paginatedMembers.forEach((m,i)=>setTimeout(()=>{const card=createCard(m);card.classList.add('show');membersGrid.appendChild(card);},i*100));
+
+  pagination.innerHTML='';
+  const totalPages = Math.max(1,Math.ceil((membersOnly.length-11)/33)+1);
+  for(let i=1;i<=totalPages;i++){
+    const btn=document.createElement('button');
+    btn.className='page-btn'+(i===currentPage?' active':'');
+    btn.innerText=i;
+    btn.addEventListener('click',()=>{currentPage=i;renderPage();});
+    pagination.appendChild(btn);
+  }
 }
 
 function createCard(m){
-    const card = document.createElement('div');
-    card.className = 'member-card';
-    card.innerHTML = `<img src="${m.img}" alt="${m.name}"><h3>${m.name}</h3><p>${m.role}</p><a href="${m.facebook}" target="_blank"><i class="fab fa-facebook"></i> facebook</a>`;
-    return card;
+  const card=document.createElement('div');
+  card.className='member-card parallax';
+  card.innerHTML=`
+    <div class="skeleton" data-loaded="false">
+      <img src="${m.img}" alt="${m.name}">
+    </div>
+    <h3>${m.name}</h3>
+    <p>${m.role}</p>
+    <a href="${m.facebook}" target="_blank"><i class="fab fa-facebook"></i> facebook</a>
+  `;
+  const skeleton=card.querySelector('.skeleton');
+  const img=skeleton.querySelector('img');
+  img.addEventListener('load',()=>{
+    skeleton.style.animation='none';
+    img.style.display='block';
+    img.style.opacity=0;
+    img.style.transition='opacity .35s ease';
+    requestAnimationFrame(()=>{img.style.opacity=1;});
+  });
+  img.addEventListener('error',()=>{
+    skeleton.style.background='#222';
+    skeleton.innerHTML='<i class="fas fa-user" style="font-size:28px;color:#666"></i>';
+  });
+  card.addEventListener('click',(e)=>{
+    if(e.target.closest('a')) return;
+    openProfileModal(m);
+  });
+  return card;
 }
 
-searchInput.addEventListener('input',()=>{currentPage=1; renderPage();});
+const profileModal=document.getElementById('profileModal');
+const modalName=document.getElementById('modalName');
+const modalImg=document.getElementById('modalImg');
+const modalRole=document.getElementById('modalRole');
+const modalFbLink=document.getElementById('modalFbLink');
+const modalExtra=document.getElementById('modalExtra');
+const modalClose=document.getElementById('modalClose');
 
-document.onkeydown = function(e) {
-    if (e.keyCode == 123) {
-        window.close();
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) {
-        window.close();
-        return false;
-    }
-    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-        window.close();
-        return false;
-    }
+function openProfileModal(m){
+  modalName.innerText=m.name;
+  modalRole.innerText=m.role;
+  modalFbLink.href=m.facebook||'#';
+  modalImg.src=m.img||'';
+  modalExtra.innerText=`โปรไฟล์ของ ${m.name}`;
+  profileModal.classList.add('show');
+  profileModal.setAttribute('aria-hidden','false');
+  document.querySelector('.modal').style.transform='translateY(0)';
+}
+function closeProfileModal(){
+  profileModal.classList.remove('show');
+  profileModal.setAttribute('aria-hidden','true');
+}
+modalClose.addEventListener('click',closeProfileModal);
+profileModal.addEventListener('click',e=>{if(e.target===profileModal) closeProfileModal();});
+searchInput.addEventListener('input',()=>{currentPage=1;renderPage();});
+
+const rootParallax=document.querySelectorAll('.parallax');
+function applyParallax(x,y,strength=0.02){
+  rootParallax.forEach(el=>{
+    const tx=x*10*strength*(el.dataset.depth?parseFloat(el.dataset.depth):1);
+    const ty=y*10*strength*(el.dataset.depth?parseFloat(el.dataset.depth):1);
+    el.style.transform=`translate3d(${tx}px,${ty}px,0)`;
+  });
+}
+if(window.DeviceOrientationEvent){
+  window.addEventListener('deviceorientation',(ev)=>{
+    const gamma=ev.gamma||0; 
+    const beta=ev.beta||0;
+    const nx=Math.max(-30,Math.min(30,gamma))/30;
+    const ny=Math.max(-30,Math.min(30,beta-30))/30;
+    applyParallax(nx,ny,0.9);
+  },true);
+}
+document.addEventListener('mousemove',function(e){
+  const cx=window.innerWidth/2;
+  const cy=window.innerHeight/2;
+  const dx=(e.clientX-cx)/cx;
+  const dy=(e.clientY-cy)/cy;
+  applyParallax(dx,dy,0.08);
+});
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+
+document.onkeydown=function(e){
+  if(e.keyCode==123){window.close();return false;}
+  if(e.ctrlKey && e.shiftKey && (e.keyCode=='I'.charCodeAt(0)||e.keyCode=='C'.charCodeAt(0)||e.keyCode=='J'.charCodeAt(0))){window.close();return false;}
+  if(e.ctrlKey && e.keyCode=='U'.charCodeAt(0)){window.close();return false;}
 };
-
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-    window.close();
-}, false);
-
-setInterval(function() {
-    if (window.devtoolsOpen) {
-        window.close();
-    }
-    const threshold = 160;
-    if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
-        window.close();
-    }
-}, 1000);
+document.addEventListener('contextmenu',function(e){e.preventDefault();window.close();},false);
+setInterval(function(){
+  if(window.devtoolsOpen){window.close();}
+  const threshold=160;
+  if(window.outerWidth-window.innerWidth>threshold || window.outerHeight-window.innerHeight>threshold){window.close();}
+},1000);
 </script>
 </body>
 </html>
-
