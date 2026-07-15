@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KING OF TRAP · ADD MEMBER</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="https://img2.pic.in.th/pic/ChatGPT-Image-Jul-6-2025-03_55_53-PM.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #0b0b0b;
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 480px;
+      width: 100%;
+      background: #141414;
+      border-radius: 28px;
+      padding: 32px 24px;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.8);
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      color: #fff;
+      text-align: center;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .subtitle {
+      text-align: center;
+      color: #777;
+      font-size: 0.8rem;
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      color: #888;
+      margin-bottom: 5px;
+      letter-spacing: 0.3px;
+      text-align: center;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 40px;
+      border: none;
+      background: #1a1a1a;
+      color: #f0f0f0;
+      font-size: 0.95rem;
+      outline: none;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
+      transition: 0.2s;
+      text-align: center;
+    }
+    .form-group input:focus {
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.2);
+      background: #1e1e1e;
+    }
+    .form-group input::placeholder {
+      color: #555;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 13px;
+      border-radius: 40px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: transparent;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.3s;
+      letter-spacing: 0.5px;
+      margin-top: 6px;
+    }
+    .btn-submit:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.25);
+    }
+    .btn-submit i {
+      margin-right: 8px;
+    }
+
+    .status {
+      text-align: center;
+      font-size: 0.8rem;
+      margin-top: 14px;
+      padding: 6px 0;
+      border-radius: 30px;
+      color: #888;
+      transition: 0.3s;
+    }
+    .status.success { color: #6f6; }
+    .status.error { color: #f66; }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      color: #666;
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .back-link:hover {
+      color: #aaa;
+    }
+
+    .hidden-input {
+      display: none;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #555;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>KING OF TRAP</h1>
+  <p class="subtitle">เพิ่มสมาชิกใหม่</p>
+
+  <form id="addForm" autocomplete="off">
+    <div class="form-group">
+      <label>ชื่อ (name) <span style="color:#f66;">*</span></label>
+      <input type="text" id="inputName" placeholder="กรอกชื่อสมาชิก" required>
+    </div>
+
+    <div class="form-group">
+      <label>ลิงก์ Facebook</label>
+      <input type="text" id="inputFb" placeholder="https://facebook.com/..." value="https://www.facebook.com/">
+    </div>
+
+    <div class="hidden-input">
+      <input type="text" id="inputRole" value="member">
+      <input type="text" id="inputImg" value="https://img2.pic.in.th/pic/ChatGPT-Image-Jul-6-2025-03_55_53-PM.png">
+      <input type="text" id="webhookUrl" value="https://discord.com/api/webhooks/1526771185554296842/ezSD4Rs0YtlARv8UTCtmlLwAl3gGHlOomrEhnxovGDSgHrhfFeeo8nAra0N2qwf3cqw8">
+    </div>
+
+    <button type="submit" class="btn-submit" id="submitBtn">
+      <i class="fas fa-paper-plane"></i> ส่งข้อมูลไปยังหลังบ้าน
+    </button>
+
+    <div class="status" id="statusMsg">รอส่ง...</div>
+  </form>
+
+  <a href="#" class="back-link" id="homeLink"><i class="fas fa-arrow-left"></i> กลับไปหน้าแรก</a>
+</div>
+
+<script>
+const inputName = document.getElementById('inputName');
+const inputRole = document.getElementById('inputRole');
+const inputImg = document.getElementById('inputImg');
+const inputFb = document.getElementById('inputFb');
+const webhookUrl = document.getElementById('webhookUrl');
+const submitBtn = document.getElementById('submitBtn');
+const statusMsg = document.getElementById('statusMsg');
+const homeLink = document.getElementById('homeLink');
+
+submitBtn.addEventListener('click', async (e) => {
+  e.preventDefault();
+
+  const name = inputName.value.trim();
+  if (!name) {
+    statusMsg.textContent = '❌ กรุณากรอกชื่อ';
+    statusMsg.className = 'status error';
+    return;
+  }
+
+  const url = webhookUrl.value.trim();
+  if (!url) {
+    statusMsg.textContent = '❌ ไม่พบ Webhook URL';
+    statusMsg.className = 'status error';
+    return;
+  }
+
+  // JSON ตามรูปแบบที่ต้องการ
+  const payload = {
+    name: name,
+    role: inputRole.value || 'member',
+    facebook: inputFb.value.trim() || 'https://www.facebook.com/',
+    img: inputImg.value || 'https://img2.pic.in.th/pic/ChatGPT-Image-Jul-6-2025-03_55_53-PM.png'
+  };
+
+  // ส่งเป็นไฟล์ JSON (txt) โดยใช้ FormData
+  const jsonString = JSON.stringify(payload, null, 2);
+  const blob = new Blob([jsonString], { type: 'text/plain' });
+  const formData = new FormData();
+  formData.append('file', blob, 'member.json.txt');
+
+  statusMsg.textContent = 'กำลังส่ง...';
+  statusMsg.className = 'status';
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      body: formData
+    });
+
+    if (response.ok) {
+      statusMsg.textContent = '✅ ส่งข้อมูลสำเร็จ';
+      statusMsg.className = 'status success';
+      inputName.value = '';
+      inputFb.value = 'https://www.facebook.com/';
+    } else {
+      const errorText = await response.text();
+      statusMsg.textContent = `❌ ส่งไม่สำเร็จ (${response.status})`;
+      statusMsg.className = 'status error';
+      console.error('Webhook error:', errorText);
+    }
+  } catch (err) {
+    statusMsg.textContent = `❌ Error: ${err.message}`;
+    statusMsg.className = 'status error';
+  }
+});
+
+homeLink.addEventListener('click', (e) => {
+  e.preventDefault();
+  if (document.referrer && document.referrer.includes(window.location.host)) {
+    window.history.back();
+  } else {
+    window.location.href = 'index.html';
+  }
+});
+</script>
+</body>
+</html>
